@@ -5,6 +5,11 @@ import {
   RENDER_INTERVAL
 } from "./constants.js";
 
+import {
+  initView,
+  drawGame
+} from "./view.js";
+
 export class Model {
   constructor() {
     this.width = GAME_SIZE;
@@ -31,6 +36,13 @@ export class Model {
           for (let j = 0; j < this.width; j++) {
             const nbAlive = this.aliveNeighbours(i, j);
             // TODO implement Game of life logic
+            if(this.isCellAlive(i, j)) {
+              if(nbAlive < 2 || nbAlive > 3) {
+                this.state[i][j] = CELL_STATES.DEAD;
+              }
+            } else if(!this.isCellAlive(i, j) && nbAlive == 3) {
+              this.state[i][j] = CELL_STATES.ALIVE;
+            }
           }
         }
 
@@ -48,7 +60,10 @@ export class Model {
   }
 
   reset() {
-    // TODO
+    this.init();
+    initView();
+    this.updated();
+    this.stop();
   }
 
   isCellAlive(x, y) {
@@ -62,11 +77,18 @@ export class Model {
   }
   aliveNeighbours(x, y) {
     let number = 0;
-    // TODO
+    // console.log(this.state);
+    for (let i = y - 1; i < y + 1; i++) {
+      for (let j = x - 1; j < x + 1; j++) {
+        if(i > 0 && i < this.width && j > 0 && j < this.height)
+          number += (this.state[i][j] == CELL_STATES.ALIVE) && (j != x && i != y) ? 1 : 0;
+      }
+    }
     return number;
   }
 
   updated() {
     // TODO update the view
+    drawGame(this);
   }
 }
