@@ -1,6 +1,6 @@
 export const GAME_SIZE = 10;
 export const CELL_SIZE = 20;
-export const RENDER_INTERVAL = 500;
+export const RENDER_INTERVAL = 50;
 
 export const CELL_STATES = {
   NONE: "darkgrey",

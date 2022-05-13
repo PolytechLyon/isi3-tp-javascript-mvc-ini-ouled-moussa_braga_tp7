@@ -9,7 +9,7 @@ const model = new Model();
 
 model.init();
 drawGame(model);
-
+model.observers.push(drawGame);
 
 let startButton = document.querySelector("#start");
 let stopButton = document.querySelector("#stop");

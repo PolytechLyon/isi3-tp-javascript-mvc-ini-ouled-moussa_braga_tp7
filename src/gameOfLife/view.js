@@ -21,3 +21,17 @@ export const drawGame = model => {
     });
   });
 };
+
+
+export const debugGame = model => {
+  let size = 10;
+  context.font = size + 'px serif';
+  context.fillStyle = "black";
+  model.state.forEach((row, rowIndex) => {
+    row.forEach((value, columnIndex) => {
+      context.fillText(model.aliveNeighbours(columnIndex, rowIndex), 
+      rowIndex * CELL_SIZE + rowIndex, columnIndex * CELL_SIZE + columnIndex * 2);
+      // console.log(model.aliveNeighbours(columnIndex, rowIndex));
+    });
+  });
+};
