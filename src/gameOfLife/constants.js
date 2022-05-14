@@ -1,11 +1,13 @@
-export const GAME_SIZE = 10;
+export const CANVAS_WIDTH = window.innerWidth;
+export const CANVAS_HEIGHT = window.innerHeight;
+export const GAME_SIZE = 20;
 export const CELL_SIZE = 20;
 export const RENDER_INTERVAL = 50;
 
 export const CELL_STATES = {
-  NONE: "darkgrey",
-  ALIVE: "chartreuse",
-  DEAD: "darkred"
+  NONE: "#99AAB5",
+  ALIVE: "#5562EA",
+  DEAD: "#23272A"
 };
 
 export const DEFAULT_ALIVE_PAIRS = [

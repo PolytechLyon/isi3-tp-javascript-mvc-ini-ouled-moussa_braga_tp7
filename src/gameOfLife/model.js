@@ -17,9 +17,7 @@ export class Model {
     this.height = GAME_SIZE;
     this.raf = null;
     this.observers = [];
-    // this.observers.push(drawGame);
-    // this.observers.push(debugGame);
-    
+    this.isRunning = false;
   }
 
   init() {
@@ -41,41 +39,41 @@ export class Model {
   }
 
   run(date = new Date().getTime()) {
-    if(this.raf == null)
-    {
-      
-    }
-    this.raf = requestAnimationFrame(() => {
-      const currentTime = new Date().getTime();
-      if (currentTime - date > RENDER_INTERVAL) {
-        
-        let buffer = JSON.parse(JSON.stringify(this.state));
-        for (let i = 0; i < this.height; i++) {
-          for (let j = 0; j < this.width; j++) {
-            const nbAlive = this.aliveNeighbours(j, i);
-            // TODO implement Game of life logic
-            if(this.isCellAlive(j, i)) {
-              if(nbAlive < 2 || nbAlive > 3) {
-                buffer[i][j] = CELL_STATES.DEAD;
+    if(this.isRunning) this.stop();
+      this.raf = requestAnimationFrame(() => {
+        const currentTime = new Date().getTime();
+        if (currentTime - date > RENDER_INTERVAL) {
+          
+          let buffer = JSON.parse(JSON.stringify(this.state));
+          for (let i = 0; i < this.height; i++) {
+            for (let j = 0; j < this.width; j++) {
+              const nbAlive = this.aliveNeighbours(j, i);
+              // TODO implement Game of life logic
+              if(this.isCellAlive(j, i)) {
+                if(nbAlive < 2 || nbAlive > 3) {
+                  buffer[i][j] = CELL_STATES.DEAD;
+                }
+              } else if(!this.isCellAlive(j, i) && nbAlive == 3) {
+                buffer[i][j] = CELL_STATES.ALIVE;
               }
-            } else if(!this.isCellAlive(j, i) && nbAlive == 3) {
-              buffer[i][j] = CELL_STATES.ALIVE;
             }
           }
+          this.state = JSON.parse(JSON.stringify(buffer));
+  
+          this.updated();
+          this.run(currentTime);
+        } else {
+          this.run(date);
         }
-        this.state = JSON.parse(JSON.stringify(buffer));
-
-        this.updated();
-        this.run(currentTime);
-      } else {
-        this.run(date);
-      }
-    });
+        
+      });
+      // this.isRunning = true;
   }
 
   stop() {
     cancelAnimationFrame(this.raf);
     this.raf = null;
+    this.isRunning = false;
   }
 
   reset() {
@@ -94,12 +92,7 @@ export class Model {
       ? 1
       : 0;
   }
-  /**
-   * 
-   * @param {*} x j
-   * @param {*} y i
-   * @returns 
-   */
+  
   aliveNeighbours(x, y) {
     let number = 0;
     for (let i = y - 1; i <= y + 1; i++) {
