@@ -6,7 +6,7 @@
 
 Nom/Prénom: `OULED MOUSSA Yanis - BRAGA Jonathan`
 
-Lien du codesandbox: `.......`
+Lien du projet: https://www.yanis-ouled-moussa.fr/Cours/Game_Of_Life/
 
 > Pour générer un codesandbox associé à votre code, [suivre cette doc](https://codesandbox.io/docs/importing#import-from-github).
 
