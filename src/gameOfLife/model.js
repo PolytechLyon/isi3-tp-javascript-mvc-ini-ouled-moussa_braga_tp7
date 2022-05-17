@@ -2,13 +2,14 @@ import {
   GAME_SIZE,
   CELL_STATES,
   DEFAULT_ALIVE_PAIRS,
-  RENDER_INTERVAL
+  RENDER_INTERVAL,
+  CELL_SIZE,
+  getCellAdaptiveSize,
+  updateGameSize
 } from "./constants.js";
 
 import {
-  initView,
-  drawGame,
-  debugGame
+  initView
 } from "./view.js";
 
 export class Model {
@@ -39,7 +40,7 @@ export class Model {
   }
 
   run(date = new Date().getTime()) {
-    if(this.isRunning) this.stop();
+    this.stop();
       this.raf = requestAnimationFrame(() => {
         const currentTime = new Date().getTime();
         if (currentTime - date > RENDER_INTERVAL) {
@@ -67,7 +68,7 @@ export class Model {
         }
         
       });
-      // this.isRunning = true;
+      this.isRunning = true;
   }
 
   stop() {
@@ -113,5 +114,34 @@ export class Model {
     this.observers.forEach( (observer) => {
       observer(this);
     });
+  }
+
+  // BONUS
+
+  updateCell(x, y) {
+    if(this.state[y][x] != CELL_STATES.ALIVE)
+    {
+      this.state[y][x] = CELL_STATES.ALIVE;
+    } else {
+      this.state[y][x] = CELL_STATES.NONE;
+    }
+    this.updated();
+  }
+
+  worldPointToCell(x, y)
+  {
+    let pos = [];
+    pos.push(Math.floor( y / getCellAdaptiveSize() ));
+    pos.push(Math.floor( (x - getCellAdaptiveSize()/4) / getCellAdaptiveSize() ));
+    return pos;
+  }
+
+  updateGameSize(wheel) {
+    updateGameSize(-wheel);
+    this.width = GAME_SIZE;
+    this.height = GAME_SIZE;
+    this.init();
+    this.updated();
+    // console.log(GAME_SIZE);
   }
 }

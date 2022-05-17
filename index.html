@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="src/style.css">
     <title>Parcel Sandbox</title>
     <meta charset="UTF-8" />
   </head>
 
   <body>
     <main id="game">
+
+      <header>
+        <h1>Game Of Life</h1>
+      </header>
+
+      <div>
+        <canvas></canvas>
+      </div>
+      
+
       <nav>
         <button type="button" id="start">Start</button>
         <button type="button" id="stop">Stop</button>
         <button type="reset" id="reset">Reset</button>
       </nav>
+
     </main>
 
     <script type="module" src="src/game.js"></script>

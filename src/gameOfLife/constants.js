@@ -1,6 +1,6 @@
-export const CANVAS_WIDTH = window.innerWidth;
-export const CANVAS_HEIGHT = window.innerHeight;
-export const GAME_SIZE = 20;
+export const CANVAS_WIDTH = window.innerWidth * 1;
+export const CANVAS_HEIGHT = window.innerHeight * 0.75;
+export var GAME_SIZE = 50;
 export const CELL_SIZE = 20;
 export const RENDER_INTERVAL = 50;
 
@@ -21,3 +21,6 @@ export const DEFAULT_ALIVE_PAIRS = [
   [6, 4],
   [8, 4]
 ];
+
+export const getCellAdaptiveSize = () => { return CANVAS_WIDTH / GAME_SIZE};
+export const updateGameSize = (delta) => {GAME_SIZE += delta};
