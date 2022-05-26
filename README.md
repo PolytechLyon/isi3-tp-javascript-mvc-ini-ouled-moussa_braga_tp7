@@ -68,6 +68,11 @@ L'objet _Model_ n'a pas de lien avec `_View_` pourtant grâce à la `méthode «
 - Faire en sorte de pouvoir changer les dimensions de la grille par un `<input/>` HTML.
 - Faire en sorte de pouvoir modifier l'état d'une cellule en cliquant dessus.
 
+Nous avons implémenté, en plus de ce qui était demandé, les fonctionalités suivantes :
+- Un système de "zoom". Lorsque l'utilisateur scroll avec sa souris dans le canvas du jeu, cela augmente ou diminue la ``GRID_SIZE`` ayant pour effet d'augmenter ou de rétrécir la zone de jeu.
+- Un système permettant de modifier l'état d'une cellule en cliquant dessus. L'état des cellules est égalment sauvegardé lorsque cette action est réalisée quand le jeu est en pause.
+- Nous avons aussi modifier la disposition des cellules de base pour y afficher un [gun](https://en.wikipedia.org/wiki/Gun_(cellular_automaton)) qui permet de générer des [gliders](https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)) à l'infini, par défaut.
+
 ## :warning: À rendre
 
 - Une URL de codesandox pointant sur votre projet github afin que je puisse voir et tester le code.
