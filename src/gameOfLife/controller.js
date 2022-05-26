@@ -21,6 +21,5 @@ export const updateCell = (model, e, offset) => {
 
 export const updateGameSize = (model, e) => {
   let deltaScroll = e.wheelDelta/120;
-  // console.log(deltaScroll);
   model.updateGameSize(deltaScroll);
 };

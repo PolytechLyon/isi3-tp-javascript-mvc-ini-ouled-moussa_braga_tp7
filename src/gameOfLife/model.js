@@ -30,14 +30,6 @@ export class Model {
       this.state[y][x] = CELL_STATES.ALIVE;
     });
     this.updated();
-
-    // DEBUG
-    // for (let i = 0; i < this.height; i++) {
-    //   for (let j = 0; j < this.width; j++) {
-    //     const nbAlive = this.aliveNeighbours(j, i);
-    //       console.log(nbAlive);
-    //   }
-    // }
   }
 
   run(date = new Date().getTime()) {
@@ -102,7 +94,6 @@ export class Model {
         if( (i >= 0 && i < this.height) && (j >= 0 && j < this.width) )
         {
           number += this.state[i][j] === CELL_STATES.ALIVE ? 1 : 0;
-          // console.log("j : " + j + " - i : " + i + " - isAlive : " + this.state[i][j]);
         }
       }
     }
@@ -137,7 +128,6 @@ export class Model {
       SAVED_ALIVE_PAIRS.push([x,y]);
     } else {
       this.state[y][x] = CELL_STATES.NONE;
-      // console.log(SAVED_ALIVE_PAIRS.findIndex(pos => {return pos == [x,y] } ));
       if(!this.isRunning) {
         let index = this.findPosIndex(SAVED_ALIVE_PAIRS, [x,y]);
         SAVED_ALIVE_PAIRS.splice(index, 1);
@@ -166,12 +156,9 @@ export class Model {
     initView();
     this.updated();
     // console.log("CellSize : " + getCellAdaptiveSize() + " - GameSize : " + GAME_SIZE);
-    // this.updated();
-    // console.log(GAME_SIZE);
 
     // this.state = Array.from(new Array(this.height), () =>
     //   Array.from(new Array(this.width), () => CELL_STATES.NONE)
     // );
-    // this.updated();
   }
 }
