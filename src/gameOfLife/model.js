@@ -2,6 +2,7 @@ import {
   GAME_SIZE,
   CELL_STATES,
   DEFAULT_ALIVE_PAIRS,
+  SAVED_ALIVE_PAIRS,
   RENDER_INTERVAL,
   CELL_SIZE,
   getCellAdaptiveSize,
@@ -25,7 +26,7 @@ export class Model {
     this.state = Array.from(new Array(this.height), () =>
       Array.from(new Array(this.width), () => CELL_STATES.NONE)
     );
-    DEFAULT_ALIVE_PAIRS.forEach(([x, y]) => {
+    SAVED_ALIVE_PAIRS.forEach(([x, y]) => {
       this.state[y][x] = CELL_STATES.ALIVE;
     });
     this.updated();
@@ -118,21 +119,42 @@ export class Model {
 
   // BONUS
 
+  findPosIndex(array, pos)
+  {
+    for(let i=0; i < array.length; i++)
+    {
+      if(array[i][0] == pos[0] && array[i][1] == pos[1])
+        return i;
+    }
+    return -1;
+  }
+
   updateCell(x, y) {
     if(this.state[y][x] != CELL_STATES.ALIVE)
     {
       this.state[y][x] = CELL_STATES.ALIVE;
+      if(!this.isRunning)
+      SAVED_ALIVE_PAIRS.push([x,y]);
     } else {
       this.state[y][x] = CELL_STATES.NONE;
+      // console.log(SAVED_ALIVE_PAIRS.findIndex(pos => {return pos == [x,y] } ));
+      if(!this.isRunning) {
+        let index = this.findPosIndex(SAVED_ALIVE_PAIRS, [x,y]);
+        SAVED_ALIVE_PAIRS.splice(index, 1);
+      }
+      
     }
+    console.log(SAVED_ALIVE_PAIRS);
+    initView();
     this.updated();
   }
 
   worldPointToCell(x, y)
   {
     let pos = [];
-    pos.push(Math.floor( y / getCellAdaptiveSize() ));
-    pos.push(Math.floor( (x - getCellAdaptiveSize()/4) / getCellAdaptiveSize() ));
+    let newX = x / getCellAdaptiveSize() - 1, newY = y / getCellAdaptiveSize() - 1;
+    pos.push( Math.ceil(newY - newY / getCellAdaptiveSize()) );
+    pos.push( Math.ceil(newX - newX / getCellAdaptiveSize()) );
     return pos;
   }
 
@@ -141,7 +163,15 @@ export class Model {
     this.width = GAME_SIZE;
     this.height = GAME_SIZE;
     this.init();
+    initView();
     this.updated();
+    // console.log("CellSize : " + getCellAdaptiveSize() + " - GameSize : " + GAME_SIZE);
+    // this.updated();
     // console.log(GAME_SIZE);
+
+    // this.state = Array.from(new Array(this.height), () =>
+    //   Array.from(new Array(this.width), () => CELL_STATES.NONE)
+    // );
+    // this.updated();
   }
 }

@@ -13,8 +13,9 @@ export const reset = model => {
 export const updateCell = (model, e, offset) => {
   let x = e.clientX - offset.left, y = e.clientY - offset.top;
   let pos = model.worldPointToCell(x, y);
-  // console.log("x : " + x + " - y : " + y);
-  // console.log(pos);
+  console.log("x : " + x + " - y : " + y);
+  
+  console.log(pos);
   model.updateCell(pos[0], pos[1]);
 };
 

@@ -11,16 +11,48 @@ export const CELL_STATES = {
 };
 
 export const DEFAULT_ALIVE_PAIRS = [
-  [3, 4],
-  [5, 6],
-  [7, 1],
-  [7, 2],
-  [8, 5],
-  [4, 4],
-  [5, 4],
   [6, 4],
-  [8, 4]
+  [6, 5],
+  [7, 5],
+  [7, 4],
+
+  [6, 14],
+  [7, 14],
+  [8, 14],
+  [5, 15],
+  [4, 16],
+  [4, 17],
+  [9, 15],
+  [10, 16],
+  [10, 17],
+  [7, 18],
+  [5, 19],
+  [6, 20],
+  [7, 20],
+  [8, 20],
+  [9, 19],
+  [7, 21],
+
+  [6, 24],
+  [6, 25],
+  [5, 25],
+  [5, 24],
+  [4, 24],
+  [4, 25],
+  [3, 26],
+  [7, 26],
+  [2, 28],
+  [3, 28],
+  [7, 28],
+  [8, 28],
+
+  [4, 38],
+  [4, 39],
+  [5, 39],
+  [5, 38]
 ];
+export var SAVED_ALIVE_PAIRS = JSON.parse(JSON.stringify(DEFAULT_ALIVE_PAIRS)) ;
 
 export const getCellAdaptiveSize = () => { return CANVAS_WIDTH / GAME_SIZE};
 export const updateGameSize = (delta) => {GAME_SIZE += delta};
+
